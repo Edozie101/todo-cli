@@ -13,7 +13,7 @@ describe TodoApp do
       simulate_user_input("quit")
       app.run
 
-      expect(output).to include("Welcome")
+      expect(output).to include( "Welcome")
     end
 
     xit "include instructions for listing projects" do
