@@ -30,6 +30,8 @@ class TodoApp < CommandLineApp
         create
       when "list"
         list
+      when "delete"
+        delete
       else
         puts "I dont know what you want me to do"
       end
@@ -37,14 +39,16 @@ class TodoApp < CommandLineApp
 
   end
 
+  $projhash{ tasks: { name: } }
+
   def edit
     puts "Please enter the project name to edit:\n"
-
   end
+
   def list
     puts "Here are all of your projects"
-
   end
+
   def create
     puts "Make a project Bitch"
   end
