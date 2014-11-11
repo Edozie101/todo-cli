@@ -39,22 +39,37 @@ class TodoApp < CommandLineApp
 
   end
 
-  $projhash{ tasks: { name: } }
+   $projects = []
 
   def edit
     puts "Please enter the project name to edit:\n"
+    ninput = gets.chomp
+    a = $projects.index(ninput)
+    $projects.delete(ninput)
+    $projects.insert(a, gets.chomp)
   end
+
 
   def list
     puts "Here are all of your projects"
+    if $projects.empty? == true
+      return "Projects\n   none "
+    else
+      a =  $projects.join(" ")
+      return "Projects\n "  +  a
+    end
   end
 
   def create
     puts "Make a project Bitch"
+    $projects >> gets.chomp
+
   end
 
   def delete
     puts "Do you want to delete this project"
+    item2delete = gets.chomp
+    $projects.delete(item2delete)
   end
 
 

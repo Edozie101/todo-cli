@@ -10,8 +10,9 @@ describe TodoApp do
 
   describe 'working with projects' do
     describe "listing projects" do
-      xit "shows an empty list when there are no projects" do
+      it "shows an empty list when there are no projects" do
         simulate_user_input("list", "quit")
+
         app.run
 
         expect(output).to include("Projects:\n  none")
