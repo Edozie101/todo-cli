@@ -12,20 +12,29 @@ class TodoApp < CommandLineApp
     $stdin.gets message
   end
   def run
-    $projhash = {}
     puts "Welcome"
     puts "'create' to create a new project"
     puts "'list' to list projects"
     puts "'edit' to edit a project"
 
-      input  = gets
+      input  = gets.chomp
 
     while input != "quit"
       input = gets.chomp
       case input
 
       when "edit"
-        edit
+        editing = true
+        while editing
+
+          if input == "back"
+            puts "Back to Main Menu"
+            editing = false
+          else
+            edit
+          end
+        end
+
       when "create"
         create
       when "list"
