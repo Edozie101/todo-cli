@@ -14,26 +14,31 @@ class TodoApp < CommandLineApp
   def r_gets message=""
     $stdin.gets message
   end
-  def run
-    puts "Welcome"
-    puts "'create' to create a new project"
+
+  def projectinstructions
+    puts "Welcome, I am the grumpy british todo app"
+    puts $*40
+    puts "Enter 'create' to create a new project"
     puts "'list' to list projects"
-    puts "'edit' to edit a project"
+    puts "and Enter 'edit' to edit a project and also add tasks"
+    puts "'delete' to delete one project "
+  end
 
-      input  = gets.chomp
-
+  def run
     while input != "quit"
+      projectinstructions
+
       input = gets.chomp
       case input
 
       when "edit"
           edit_project = gets.chomp
           if $projects.include(edit_project)
-          puts "Editing Project: #{edit_project} "
-          puts "'list' to list tasks"
-          puts "'create' to create a new task"
-          puts "'edit' to edit a task"
-          puts "'complete' to complete a task and remove it from the list"
+          puts "Im just gonna start Editing Project: #{edit_project} now "
+          puts "Type in 'list' to list tasks"
+          puts "Bash in 'create' to create a new task"
+          puts "Enter 'edit' to edit a task"
+          puts "Put 'complete' to complete a task and remove it from the list"
         else
           puts "What the fook are you tawkin aboot"
         end
@@ -49,6 +54,8 @@ class TodoApp < CommandLineApp
             listtasks
           elsif input == "edit"
             edittasks
+          elsif input == "complete"
+            completetask
           elsif input == "delete"
             deletetasks
 
@@ -87,10 +94,10 @@ class TodoApp < CommandLineApp
   def list
     puts "Here are all of your projects"
     if $projects.empty? == true
-      return "Projects\n   none "
+      puts "Projects\n  none "
     else
       a =  $projects.join(" ")
-      return "Projects\n "  +  a
+      puts "Projects\n "  +  a
     end
   end
 
@@ -103,7 +110,7 @@ class TodoApp < CommandLineApp
   def delete
     puts "Do you want to delete this project"
     item2delete = gets.chomp
-    if $projects.include(item2delete) == false
+    if $projects.include?(item2delete) == false
       puts "We dont have this project mate"
     else
       $projects.delete(item2delete)
@@ -116,11 +123,56 @@ class TodoApp < CommandLineApp
       tasks
     else
       "none"
-
     end
 
   end
 
+  def createtasks
+    puts "Tell me what name you want your task to be"
+    ntask = gets.chomp
+    $tasks >> ntask
+    puts "Just added " + ntask + " to your list mate."
+
+  end
+
+  def edittasks
+    puts "Please enter the project name to edit:\n"
+    ninput = gets.chomp
+    if $tasks.include?(ninput) == false
+      puts "I dunno what you want me to do mate.. cus it says task not found: " + ninput + " in my head"
+    else
+    puts "Editing task: " + ninput
+    a = $tasks.index(ninput)
+    $tasks.delete(ninput)
+    puts "Please just enter the new name you want I cant do this anymore"
+    $tasks.insert(a, gets.chomp)
+
+  end
+
+  def completetask
+    puts "What task would you like to complete, and get it done quickly..."
+     ctask = gets.chomp
+     if $tasks.include?(ctask)
+      a = $tasks.index(ctask)
+      $tasks.delete(ctask)
+      $tasks.insert(a, ctask + ": completed")
+
+
+    else puts "I dunno what you want me to do mate.. cus it says task not found: "  + ctask + " in my head.."
+
+     end
+
+  end
+
+  def deletetask
+    puts "What task do you want to delete mate.."
+    item2delete = gets.chomp
+    if $projects.include?(item2delete) == false
+      puts "We dont have this project mate"
+    else
+      $projects.delete(item2delete)
+    end
+  end
 
 
 end
